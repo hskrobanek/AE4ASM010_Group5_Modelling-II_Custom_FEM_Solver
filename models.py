@@ -1,8 +1,12 @@
 import numpy as np
 
+
 # Define the truss model to be analysed by the FEM software
 
-class Model_1:
+class AbstractModule:
+    pass
+
+class Model_1(AbstractModule):
     def __init__(self):
 
         # Define node cooridnates [x, y] based on a chosen origin point
@@ -44,7 +48,7 @@ class Model_1:
 
 
 
-class Model_2:
+class Model_2(AbstractModule):
     def __init__(self):
 
         # Define node cooridnates [x, y] based on a chosen origin point
@@ -86,7 +90,7 @@ class Model_2:
 
 
 
-class Model_3:
+class Model_3(AbstractModule):
     def __init__(self):
 
         # Define node cooridnates [x, y] based on a chosen origin point

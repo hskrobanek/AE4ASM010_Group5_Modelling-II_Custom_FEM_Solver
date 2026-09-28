@@ -65,7 +65,7 @@ class Element:
 
 # Define an assembly class to create the structural elements
 class Assembly:
-    def __init__(self, model, element_constructor):  # GW What about not passing Element? Do we really want to have flexiblity in different Element constructors?
+    def __init__(self, model, element_constructor):
         self.model = model
         self.element_constructor = element_constructor
 

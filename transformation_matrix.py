@@ -44,7 +44,7 @@ def transform_stiffness_matrices(
 
     for i in range(n_elements):
 
-        # Extract k from teammate's matrix
+        # Extract k 
         k = element_stiffness_matrices[i][i, i]
 
         # Build the 4x4 local truss stiffness matrix

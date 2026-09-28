@@ -1,4 +1,9 @@
+from typing import TYPE_CHECKING
+
 import numpy as np
+
+if TYPE_CHECKING:
+    from .models import AbstractModule
 
 # Derive an element description from the global model definition
 class Element:

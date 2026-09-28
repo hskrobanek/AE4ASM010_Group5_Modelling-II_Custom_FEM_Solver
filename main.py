@@ -1,5 +1,6 @@
 from models import Model_1, Model_2, Model_3
 from objects import Element, Assembly
+from global_stiffness_matrix import get_global_stiffness_matrix
 
 '''
 Example imports from files:
@@ -27,7 +28,9 @@ element_stiffnes_matrices = get_element_stiffness_matrices(model, elements)
 
 element_rotation_angles, element_transformation_matrices = get_element_transformation_matrices(model, elements)
 
-global_stiffness_matrix = get_global_stiffness_matrix(model, elements, element_stiffnes_matrices, element_transformation_matrices, model.connectivity_matrix)
+global_stiffness_matrix = get_global_stiffness_matrix(
+        model, element_stiffness_matrices, element_transformation_matrices, connectivity_matrix
+)
 
 global_displacement_vector = solve_system(global_stiffness_matrix, model.boundary_conditions, model.applied_forces)
 

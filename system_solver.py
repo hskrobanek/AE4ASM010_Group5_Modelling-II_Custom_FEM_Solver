@@ -19,7 +19,9 @@ def sysSolver(K, BC, F):
     """
     Fa = F.flatten()
 # transform BC into np array
-
+    """
+    BC boundary conditions into np array [n]
+    """
     BC = np.array(BC) 
 # debug printouts
     if DEBUG:

@@ -3,9 +3,10 @@ import numpy as np
 
 def get_element_transformation_matrices(model, elements):
 
-    angles = np.zeros(model.n_elements) #setting up empty array for angles with length of n_elements
+    angles = np.zeros(model.n_elements)
+
     transformation_matrices = np.zeros(
-        (model.n_elements, 4, 4) #n_elements times an empty 4x4 transformation matrices
+        (model.n_elements, 4, 4)
     )
 
     for i, element in enumerate(elements):
@@ -26,7 +27,7 @@ def get_element_transformation_matrices(model, elements):
         ])
 
         angles[i] = theta
-        transformation_matrices[i] = T #gives final array of Transformation matrices for each element
+        transformation_matrices[i] = T
 
     return angles, transformation_matrices
 
@@ -43,9 +44,21 @@ def transform_stiffness_matrices(
 
     for i in range(n_elements):
 
-        K_local = element_stiffness_matrices[i]
+        # Extract k from teammate's matrix
+        k = element_stiffness_matrices[i][i, i]
+
+        # Build the 4x4 local truss stiffness matrix
+        K_local = np.array([
+            [ k, 0, -k, 0],
+            [ 0, 0,  0, 0],
+            [-k, 0,  k, 0],
+            [ 0, 0,  0, 0]
+        ])
+
+        # Transformation matrix for same element
         T = element_transformation_matrices[i]
 
+        # Transform local -> global
         global_element_stiffness_matrices[i] = (
             T @ K_local @ T.T
         )

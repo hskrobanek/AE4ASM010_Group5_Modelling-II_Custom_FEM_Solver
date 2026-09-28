@@ -22,7 +22,7 @@ def calculate_stress_strain(element_transformation_matrices,
         u_global_element = np.array([u_global_element]).T
 
     # Find the local displacements according to u_local = T-1 u_global
-        T_inv = element_transformation_matrices[element.element_number]
+        T_inv = np.linalg.inv(element_transformation_matrices[element.element_number])
         u_local_element = T_inv @ u_global_element
 
     # Calculate the strain based on epsilon = (u2x - u1x) / 0

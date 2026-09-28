@@ -50,7 +50,7 @@ def solve_system(global_stiffness_matrix,
     u_known_reduced = np.delete(u_known, coords_del, 0)
 
     # Assemble the RHS of the governing equation
-    RHS = applied_force_vector_reduced + u_known_reduced
+    RHS = applied_force_vector_reduced - u_known_reduced
 
     # Solve the remaining system
     solution = np.linalg.solve(gsm_reduced_col_row, RHS)

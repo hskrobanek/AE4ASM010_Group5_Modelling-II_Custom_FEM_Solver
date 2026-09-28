@@ -17,7 +17,7 @@ def get_element_transformation_matrices(model, elements):
             if dy == 0:
                 raise ValueError("Element is a node: dx = dy = 0")
         else:
-            rotation_angle = float(np.arctan(dy/dx))
+            rotation_angle = float(np.arctan2(dy, dx))
 
         transformation_matrix = np.array([[float(np.cos(rotation_angle)), float(-np.sin(rotation_angle)), 0.0, 0.0],
                                  [float(np.sin(rotation_angle)), float(np.cos(rotation_angle)), 0.0, 0.0],

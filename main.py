@@ -10,7 +10,20 @@ from deformation_plots import get_coordinates_deformed, plot_coordinates, print_
 
 import numpy as np
 
-model = Model_3()
+model_id = input("Choose Verification Model (1-3): ")
+
+if model_id == "1":
+    model = Model_1()
+
+elif model_id == '2':
+    model = Model_2()
+
+elif model_id == '3':
+    model = Model_3()
+
+else:
+    print('Invalid choice. Setting default to Model 1.')
+    model = Model_1()
 
 assembly = Assembly(model, Element)
 

@@ -39,3 +39,23 @@ def get_reaction_forces(K, U, F):
     R = K @ U - F
 
     return R
+
+
+
+# TEST 1 - Call the function with example inputs
+
+Ttest = np.array([[0.78087, -0.6247, 0.0,     0.0    ],
+               [0.6247,   0.78087, 0.0,     0.0    ],
+               [0.0,      0.0,     0.78087, -0.6247],
+               [0.0,      0.0,     0.6247,  0.78087]])
+
+  
+T1 = [Ttest]                                   
+U1 = np.array([0.0, 0.0, 0.223, -0.865])    
+L1 = [160.08e-3]                            
+E1 = [70e9]                                 
+
+strains, stresses = calculate_stress_strain(T1, U1, L1, E1, 1)
+print(strains)  
+print(stresses)   
+

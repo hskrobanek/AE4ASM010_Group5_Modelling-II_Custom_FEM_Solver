@@ -32,7 +32,7 @@ def calculate_stress_strain(element_transformation_matrices, global_displacement
 
 
 
-def get_reaction_forces(global_stiffness_matrix, global_displacement_vector, model.applied_forces):
+def get_reaction_forces(global_stiffness_matrix, global_displacement_vector, model):
     U = np.asarray(global_displacement_vector, dtype=float).flatten()
     F = np.asarray(model.applied_forces, dtype=float).flatten() 
 

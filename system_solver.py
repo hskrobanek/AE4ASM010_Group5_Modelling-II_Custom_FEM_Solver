@@ -12,7 +12,7 @@ BC  boundary conditions list [n]
         None no boundary (free)
 F   forces array matrix [1, n]
 """
-def sysSolver(K, BC, F):
+def solve_system(K, BC, F):
 # transform F from applied forces matrix [1, n] to array list [n]
     """
     Fa applied forces list [n]

@@ -47,3 +47,32 @@ def get_reaction_forces(global_stiffness_matrix, global_displacement_vector, mod
     R = global_stiffness_matrix @ U - F
 
     return R
+
+
+
+def print_results_tables(global_displacement_vector, strains, stresses, reaction_forces, model):
+    U = np.asarray(global_displacement_vector, dtype=float).flatten()
+    R = np.asarray(reaction_forces, dtype=float).flatten()
+
+    # nodal displacements
+    print("\nNODAL DISPLACEMENTS")
+    print(f"{'Node':>6} {'U1 [m]':>15} {'U2 [m]':>15}")
+    for n in range(model.n_nodes):
+        print(f"{n:>6} {U[2*n]:>15.6e} {U[2*n + 1]:>15.6e}")
+
+    # element strains and stresses
+    print("\nELEMENT STRAINS AND STRESSES")
+    print(f"{'Element':>7} {'Nodes':>7} {'Strain [-]':>15} {'Stress [Pa]':>15}")
+    for e in range(model.n_elements):
+        node1, node2 = model.connectivity_matrix[e]
+        print(f"{e:>7} {f'{node1}-{node2}':>7} {strains[e][1]:>15.6e} {stresses[e][1]:>15.6e}")
+
+    # reaction forces, only at constrained DOFs (free DOFs are zero up to round-off)
+    print("\nREACTION FORCES")
+    print(f"{'Node':>6} {'RF1 [N]':>15} {'RF2 [N]':>15}")
+    for n in range(model.n_nodes):
+        rf = []
+        for dof in (2*n, 2*n + 1):
+            rf.append(f"{R[dof]:>15.6e}" if model.boundary_conditions[dof] is not None else f"{'-':>15}")
+        print(f"{n:>6} {rf[0]} {rf[1]}")
+    print()

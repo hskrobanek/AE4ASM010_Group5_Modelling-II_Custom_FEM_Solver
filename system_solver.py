@@ -6,7 +6,7 @@ K   stiffness matrix [n, n]
 BC  boundary conditions list [n] 
         0 or applied displacement (bounded)
         None no boundary (free)
-F   forces array [n, 1]
+F   forces array matrix [1, n]
 """
 def sysSolver(K, BC, F):
 #transform BC from boundary conditions list [n] to array [n,2] with column if bounded and boundary value
@@ -24,10 +24,16 @@ def sysSolver(K, BC, F):
                             else if first==False/0 --> 0 no boundary (free)
     """
     npBC = np.array(BCc) #build np array out of constructed BCc
+#transform F from applied forces matrix [1, n] to array list [n]
+    """
+    Fa applied forces list [n]
+    """
+    Fa = F.flatten()
 
-    print("K=", K) # debug printouts
+# debug printouts
+    print("K=", K)
     print("npBC=", npBC)
-    print("F=", F)
+    print("Fa=", Fa)
 
     # boundary conditions into boolean bounded and free
     bounded = npBC[:, 0]==1 # all rows BC==1 --> bounded DOFs (into boolean array True)
@@ -42,10 +48,10 @@ def sysSolver(K, BC, F):
         b = npBC[i, 1]  # applied dicplacement (bound value)
         if b != 0.0:  # if not zero, add column to F
             print("modify i=", i, " b=", b)
-            F[free] -= K[free, i] * b # move applied displacement to the right of the equation (only the not reduced elements)
+            Fa[free] -= K[free, i] * b # move applied displacement to the right of the equation (only the not reduced elements)
     
     redK = K[np.ix_(free, free)]  # ix_ extracts the non bounded columns and rows from K (reduction K in 2D)
-    redF = F[free]  # extracts the non bounded nodes for F (reduction K in 1D)
+    redF = Fa[free]  # extracts the non bounded nodes for F (reduction K in 1D)
     print("redK=", redK)
     print("redF=", redF)
 
@@ -54,7 +60,7 @@ def sysSolver(K, BC, F):
     print("redU=", redU)
 
     # reconstruct global displacement vector
-    U = np.zeros(len(F), dtype=float) # zero vector
+    U = np.zeros(len(Fa), dtype=float) # zero vector
     U[free] = redU  # solutions for not bounded nodes
     U[bounded] = npBC[bounded, 1]  # boundary conditions set displacements    
     print("U=", U)

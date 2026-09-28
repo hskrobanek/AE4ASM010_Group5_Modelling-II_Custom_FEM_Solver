@@ -58,14 +58,14 @@ def print_results_tables(global_displacement_vector, strains, stresses, reaction
     print("\nNODAL DISPLACEMENTS")
     print(f"{'Node':>6} {'U1 [m]':>15} {'U2 [m]':>15}")
     for n in range(model.n_nodes):
-        print(f"{n:>6} {U[2*n]:>15.6e} {U[2*n + 1]:>15.6e}")
+        print(f"{n+1:>6} {U[2*n]:>15.6e} {U[2*n + 1]:>15.6e}")
 
     # element strains and stresses
     print("\nELEMENT STRAINS AND STRESSES")
     print(f"{'Element':>7} {'Nodes':>7} {'Strain [-]':>15} {'Stress [MPa]':>15}")
     for e in range(model.n_elements):
         node1, node2 = model.connectivity_matrix[e]
-        print(f"{e:>7} {f'{node1}-{node2}':>7} {strains[e][1]:>15.6e} {stresses[e][1] / 1e6:>15.6e}")
+        print(f"{e+1:>7} {f'{node1+1}-{node2+1}':>7} {strains[e][1]:>15.6e} {stresses[e][1] / 1e6:>15.6e}")
 
     # reaction forces, only at constrained DOFs (free DOFs are zero up to round-off)
     print("\nREACTION FORCES")
@@ -74,5 +74,5 @@ def print_results_tables(global_displacement_vector, strains, stresses, reaction
         rf = []
         for dof in (2*n, 2*n + 1):
             rf.append(f"{R[dof]:>15.6e}" if model.boundary_conditions[dof] is not None else f"{'-':>15}")
-        print(f"{n:>6} {rf[0]} {rf[1]}")
+        print(f"{n+1:>6} {rf[0]} {rf[1]}")
     print()

@@ -5,6 +5,7 @@ from system_solver import *
 from element_transformation_matrix import *
 from postprocessing import *
 from element import *
+from deformation_plots import *
 '''
 Example imports from files:
 
@@ -50,13 +51,11 @@ assembly = Assembly(model, Element)
 
 elements = assembly.create_assembly_elements()
 
-element_stiffnes_matrices = local_stiffness_matrices(model, model.n_elements, model.elastic_modulus, model.cross_section_area)
+element_stiffness_matrices = local_stiffness_matrices(model, model.n_elements, model.elastic_modulus, model.cross_section_area)
 
 element_rotation_angles, element_transformation_matrices = get_element_transformation_matrices(model, elements)
 
-global_stiffness_matrix = get_global_stiffness_matrix(
-        model, element_stiffness_matrices, element_transformation_matrices
-)
+global_stiffness_matrix = get_global_stiffness_matrix(model, element_stiffness_matrices, element_transformation_matrices)
 
 global_displacement_vector = solve_system(global_stiffness_matrix, model.boundary_conditions, model.applied_forces)
 
@@ -64,6 +63,6 @@ strains, stresses = calculate_stress_strain(element_transformation_matrices, glo
 
 reaction_forces = get_reaction_forces(global_stiffness_matrix, global_displacement_vector, model.applied_forces)
 
-# coordinates_undeformed, coordinates_deformed = get_coordinates_deformed(model, global_displacement_vector)
+coordinates_undeformed, coordinates_deformed = get_coordinates_deformed(model, global_displacement_vector)
 
-# plot_coordinates(model, coordinates_deformed, coordinates_undeformed)
+plot_coordinates(model, coordinates_deformed, coordinates_undeformed)

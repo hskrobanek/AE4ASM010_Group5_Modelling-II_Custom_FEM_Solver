@@ -13,11 +13,11 @@ BC  boundary conditions list [n]
 F   forces array matrix [1, n]
 """
 def sysSolver(K, BC, F):
-#transform BC from boundary conditions list [n] to array [n,2] with column if bounded and boundary value
-    BCc = [] #list boundary conditions construction (will become list of list)
-    for i in range(len(BC)): #build and append rows of np boundary condition array
-        BCrow = [] #start from empty list
-        #build 2 columns for each row (0=no boundary or 1=boundary, applied boundary)
+# transform BC from boundary conditions list [n] to array [n,2] with column if bounded and boundary value
+    BCc = [] # list boundary conditions construction (will become list of list)
+    for i in range(len(BC)): # build and append rows of np boundary condition array
+        BCrow = [] # start from empty list
+        # build 2 columns for each row (0=no boundary or 1=boundary, applied boundary)
         BCrow.append(0.0 if BC[i] == None else 1.0)
         BCrow.append(0.0 if BC[i] == None else BC[i])
         BCc.append(BCrow)
@@ -27,8 +27,9 @@ def sysSolver(K, BC, F):
             second column if first==True/1 --> 0 or bounded applied displacement
                             else if first==False/0 --> 0 no boundary (free)
     """
-    npBC = np.array(BCc) #build np array out of constructed BCc
-#transform F from applied forces matrix [1, n] to array list [n]
+    npBC = np.array(BCc) # build np array out of constructed BCc
+
+# transform F from applied forces matrix [1, n] to array list [n]
     """
     Fa applied forces list [n]
     """
@@ -60,7 +61,7 @@ def sysSolver(K, BC, F):
     print("redF=", redF)
 
 # solve
-    redU = np.linalg.solve(redK, redF) #solution of redF=redK*redU
+    redU = np.linalg.solve(redK, redF) # solution of redF=redK*redU
     print("redU=", redU)
 
     # reconstruct global displacement vector

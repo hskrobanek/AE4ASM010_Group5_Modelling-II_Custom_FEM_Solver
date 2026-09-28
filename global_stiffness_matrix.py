@@ -49,6 +49,7 @@ def add_local_matrix_to_global(rotated_stiffness_matrix: Matrix, nodes_pair: lis
             global_node_index = nodes_pair[local_node_index]
             global_column_index = global_node_index * DOFS_PER_NODE + dimension_index
 
+            # numpy arrays are mutable so this in place addition will persist
             global_matrix[global_row_index][global_column_index] += stiffness
 
 

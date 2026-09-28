@@ -15,8 +15,10 @@ if TYPE_CHECKING:
 def get_global_stiffness_matrix(
         model: AbstractModule, element_stiffness_matrices: list[Matrix], element_transformation_matrices: list[Matrix]
 ) -> Matrix:
+    verify_inputs(model, element_stiffness_matrices, element_transformation_matrices)
+
     connectivity_matrix = model.connectivity_matrix
-    
+
     total_degrees_of_freedom = DOFS_PER_NODE * model.n_nodes
     global_matrix = np.zeros((total_degrees_of_freedom, total_degrees_of_freedom))  # GW Check
 
@@ -35,6 +37,20 @@ def get_global_stiffness_matrix(
         raise RuntimeError("Global stiffness matrix is not symmetric. Check logic.")
 
     return global_matrix
+
+def verify_inputs(
+        model: AbstractModule, element_stiffness_matrices: list[Matrix], element_transformation_matrices: list[Matrix]
+) -> None:
+    if len(element_stiffness_matrices) != model.n_elements or len(element_transformation_matrices) != model.n_elements:
+        raise ValueError(
+            f"Expected {model.n_elements} stiffness and transformation matrices, got "
+            f"{len(element_stiffness_matrices)} and {len(element_transformation_matrices)}."
+        )
+
+    for element_index, nodes_pair in enumerate(model.connectivity_matrix):
+        for node in nodes_pair:
+            if not 0 <= node < model.n_nodes:
+                raise ValueError(f"Element {element_index} refers to node {node}, valid nodes are 0 to {model.n_nodes - 1}.")
 
 def add_local_matrix_to_global(rotated_stiffness_matrix: Matrix, nodes_pair: list[int], global_matrix: Matrix) -> None:
     for local_row_index, row in enumerate(rotated_stiffness_matrix):

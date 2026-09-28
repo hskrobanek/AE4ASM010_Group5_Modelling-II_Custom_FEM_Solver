@@ -15,10 +15,18 @@ def calculate_stress_strain(element_transformation_matrices, global_displacement
     strains = np.zeros((model.n_elements, 2))
     stresses = np.zeros((model.n_elements, 2))
 
+    U_global = np.asarray(global_displacement_vector, dtype=float).flatten()
+
     for e in range(model.n_elements):
 
-        # transform back to the local co-ordinate system: U_local = T^-1 U_global
-        U_local_element = np.linalg.inv(element_transformation_matrices[e]) @ global_displacement_vector
+        # pick out the 4 global DOFs of this element: [u1, v1, u2, v2]
+        node1 = elements[e].node1_number
+        node2 = elements[e].node2_number
+        element_dofs = [2*node1, 2*node1 + 1, 2*node2, 2*node2 + 1]
+        U_global_element = U_global[element_dofs]
+
+        # transform back to the local co-ordinate system: U_local = T^-1 U_global (T is orthogonal, so T^-1 = T^T)
+        U_local_element = element_transformation_matrices[e].T @ U_global_element
 
         # axial strain from the local axial displacements of both nodes
         epsilon = (U_local_element[2] - U_local_element[0]) / elements[e].length_undeformed
@@ -39,23 +47,3 @@ def get_reaction_forces(global_stiffness_matrix, global_displacement_vector, mod
     R = global_stiffness_matrix @ U - F
 
     return R
-
-
-
-# TEST 1 - Call the function with example inputs
-
-Ttest = np.array([[0.78087, -0.6247, 0.0,     0.0    ],
-               [0.6247,   0.78087, 0.0,     0.0    ],
-               [0.0,      0.0,     0.78087, -0.6247],
-               [0.0,      0.0,     0.6247,  0.78087]])
-
-  
-T1 = [Ttest]                                   
-U1 = np.array([0.0, 0.0, 0.223, -0.865])    
-L1 = [160.08e-3]                            
-E1 = [70e9]                                 
-
-strains, stresses = calculate_stress_strain(T1, U1, L1, E1, 1)
-print(strains)  
-print(stresses)   
-

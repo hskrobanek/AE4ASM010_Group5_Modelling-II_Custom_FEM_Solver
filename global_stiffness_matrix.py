@@ -10,7 +10,7 @@ Matrix = npt.NDArray[np.float64]
 DOFS_PER_NODE = 2  # 2D truss: x and y displacement
 
 if TYPE_CHECKING:
-    from .models import AbstractModule
+    from models import AbstractModule
 
 def get_global_stiffness_matrix(
         model: AbstractModule, element_stiffness_matrices: list[Matrix], element_transformation_matrices: list[Matrix],

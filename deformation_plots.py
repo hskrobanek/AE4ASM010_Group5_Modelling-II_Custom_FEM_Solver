@@ -49,7 +49,7 @@ def print_results(model, elements, global_displacement_vector, strains, stresses
 
 
     element_data = {'Element Number': [],  'strain [-]': [], 'stress [MPa]': []}
-    node_data = {'Node Number': [], 'x-coord': [], 'y-coord': [], 'U1': [], 'U2': [], 'Reaction force x-dir': [], 'Reaction force y-dir': []}
+    node_data = {'Node Number': [], 'x-coord [mm]': [], 'y-coord [mm]': [], 'U1 [mm]': [], 'U2 [mm]': [], 'RF1 [N]': [], 'RF2 [N]': []}
 
     element_df = pd.DataFrame(element_data)
     node_df = pd.DataFrame(node_data)
@@ -63,7 +63,7 @@ def print_results(model, elements, global_displacement_vector, strains, stresses
         element_df = pd.concat([element_df, pd.DataFrame([element_increment])], ignore_index=True)
 
     for i in range(len(model.nodes)):
-        node_increment = {'Node Number': i+1, 'x-coord': model.nodes[i][0], 'y-coord': model.nodes[i][1], 'U1': global_displacement_vector[2*i], 'U2': global_displacement_vector[2*i+1], 'Reaction force x-dir': reaction_forces[2*i], 'Reaction force y-dir': reaction_forces[2*i+1]}
+        node_increment = {'Node Number': i+1, 'x-coord [mm]': model.nodes[i][0] * 1000, 'y-coord [mm]': model.nodes[i][1] * 1000, 'U1 [mm]': global_displacement_vector[2*i] * 100, 'U2 [mm]': global_displacement_vector[2*i+1] * 1000, 'RF1 [N]': reaction_forces[2*i].item(), 'RF2 [N]': reaction_forces[2*i+1].item()}
         node_df = pd.concat([node_df, pd.DataFrame([node_increment])], ignore_index=True)
 
     if show_results:

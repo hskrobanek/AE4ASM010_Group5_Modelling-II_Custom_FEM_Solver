@@ -1,9 +1,9 @@
 # calculate the element stiffness matrix in local coordinate system
 # stiffness matrix is 4 x 4 size
 # code for main:
-from element import local_stiffness_matrices
+# from element import local_stiffness_matrices
 
-Ke = local_stiffness_matrices(model, model.n_elements, model.cross_section_area)
+# Ke = local_stiffness_matrices(model, model.n_elements, model.cross_section_area)
 import numpy as np
 from objects import *
 

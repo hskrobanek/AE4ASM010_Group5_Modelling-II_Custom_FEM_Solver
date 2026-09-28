@@ -50,7 +50,7 @@ assembly = Assembly(model, Element)
 
 elements = assembly.create_assembly_elements()
 
-element_stiffnes_matrices = local_stiffness_matrices(model, elements)
+element_stiffnes_matrices = local_stiffness_matrices(model, model.n_elements, model.cross_section_area)
 
 element_rotation_angles, element_transformation_matrices = get_element_transformation_matrices(model, elements)
 

@@ -43,13 +43,30 @@ def plot_coordinates(model,
 
     return
 
-def print_results(mode, elements, global_displacement_vector, strains, stresses, reaction forces):
+def print_results(model, elements, global_displacement_vector, strains, stresses, reaction_forces, show_results:bool):
 
-    data = pd.DataFrame()
+    element_data = pd.DataFrame(columns = ['Element Number', 'strain', 'stress'])
+
+
+    element_data = {'Element Number': [],  'strain [-]': [], 'stress [MPa]': []}
+    node_data = {'Node Number': [], 'x-coord': [], 'y-coord': [], 'U1': [], 'U2': [], 'Reaction force x-dir': [], 'Reaction force y-dir': []}
+
+    element_df = pd.DataFrame(element_data)
+    node_df = pd.DataFrame(node_data)
+
 
     for element in elements:
-        pass
+        element_increment = {'Element Number': element.element_number + 1, 'strain [-]': strains[element.element_number], 'stress [MPa]': stresses[element.element_number]/1e6}
+        element_df = pd.concat([element_df, pd.DataFrame([element_increment])], ignore_index=True)
+
+    for i in range(len(model.nodes)):
+        node_increment = {'Node Number': i+1, 'x-coord': model.nodes[i][0], 'y-coord': model.nodes[i][1], 'U1': global_displacement_vector[2*i], 'U2': global_displacement_vector[2*i+1], 'Reaction force x-dir': reaction_forces[i], 'Reaction force y-dir': reaction_forces[i+1]}
+        node_df = pd.concat([node_df, pd.DataFrame([node_increment])], ignore_index=True)
+
+    if show_results:
+        print(element_df)
+        print()
+        print(node_df)
 
 
-
-    return
+    return element_df, node_df

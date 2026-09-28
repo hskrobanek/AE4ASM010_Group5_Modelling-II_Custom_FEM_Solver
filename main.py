@@ -6,11 +6,11 @@ from element_transformation_matrix import get_element_transformation_matrices
 from global_stiffness_matrix import get_global_stiffness_matrix
 from solve_system_global import solve_system
 from post_processing import calculate_stress_strain, get_reaction_forces
-from deformation_plots import get_coordinates_deformed, plot_coordinates
+from deformation_plots import get_coordinates_deformed, plot_coordinates, print_results
 
 import numpy as np
 
-model = Model_1()
+model = Model_3()
 
 assembly = Assembly(model, Element)
 
@@ -32,4 +32,5 @@ coordinates_undeformed, coordinates_deformed = get_coordinates_deformed(model, g
 
 plot_coordinates(model, coordinates_deformed, coordinates_undeformed)
 
+element_info, node_info = print_results(model, elements, global_displacement_vector, strains, stresses, reaction_forces, show_results=True)
 

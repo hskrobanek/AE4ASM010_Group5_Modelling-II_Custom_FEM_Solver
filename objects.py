@@ -2,7 +2,7 @@ import numpy as np
 
 # Derive an element description from the global model definition
 class Element:
-    def __init__(self, model, element_number: int):
+    def __init__(self, model: AbstractModule, element_number: int):
 
         # Initialise model and element number values
         self.model = model

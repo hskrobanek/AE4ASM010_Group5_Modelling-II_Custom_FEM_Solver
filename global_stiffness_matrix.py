@@ -1,9 +1,13 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 import numpy as np
 import numpy.typing as npt
 
 Matrix = npt.NDArray[np.float64]
+
+DOFS_PER_NODE = 2  # 2D truss: x and y displacement
 
 if TYPE_CHECKING:
     from .models import AbstractModule
@@ -12,7 +16,8 @@ def get_global_stiffness_matrix(
         model: AbstractModule, element_stiffness_matrices: list[Matrix], element_transformation_matrices: list[Matrix],
         connectivity_matrix: list[Matrix]
 ) -> Matrix:
-    global_matrix = np.zeros(model.n_elements, model.n_elements)  # GW Check
+    total_degrees_of_freedom = DOFS_PER_NODE * model.n_nodes
+    global_matrix = np.zeros((total_degrees_of_freedom, total_degrees_of_freedom))  # GW Check
 
     # Iterate over the elements
     for element_index in range(model.n_elements):
@@ -32,16 +37,16 @@ def get_global_stiffness_matrix(
 
 def add_local_matrix_to_global(rotated_stiffness_matrix: Matrix, nodes_pair: list[int], global_matrix: Matrix) -> None:
     for local_row_index, row in enumerate(rotated_stiffness_matrix):
-        local_node_index = local_row_index // 2  # GW Check whether this is floor division  # GW Don't hardcode 2
-        dimension_index = local_row_index % 2  # GW Check
+        local_node_index = local_row_index // DOFS_PER_NODE  # GW Check whether this is floor division
+        dimension_index = local_row_index % DOFS_PER_NODE  # GW Check
         global_node_index = nodes_pair[local_node_index]
-        global_row_index = global_node_index * 2 + dimension_index
+        global_row_index = global_node_index * DOFS_PER_NODE + dimension_index
 
         for local_column_index, stiffness in enumerate(row):
-            local_node_index = local_column_index // 2
-            dimension_index = local_column_index % 2
+            local_node_index = local_column_index // DOFS_PER_NODE
+            dimension_index = local_column_index % DOFS_PER_NODE
             global_node_index = nodes_pair[local_node_index]
-            global_column_index = global_node_index * 2 + dimension_index
+            global_column_index = global_node_index * DOFS_PER_NODE + dimension_index
 
             global_matrix[global_row_index][global_column_index] += stiffness
 

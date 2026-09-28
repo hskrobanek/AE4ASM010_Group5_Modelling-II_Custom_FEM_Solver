@@ -26,7 +26,7 @@ def get_global_stiffness_matrix(
         transformation_matrix = element_transformation_matrices[element_index]
         local_stiffness_matrix = element_stiffness_matrices[element_index]
         
-        rotated_stiffness_matrix = transformation_matrix @ (local_stiffness_matrix @ transformation_matrix.T)  # GW superfluous () ?
+        rotated_stiffness_matrix = transformation_matrix @ local_stiffness_matrix @ transformation_matrix.T 
 
         add_local_matrix_to_global(rotated_stiffness_matrix, nodes_pair, global_matrix)
 

@@ -62,7 +62,7 @@ class Element:
 class Assembly:
     def __init__(self, model, element_constructor):
         self.model = model
-        self.element = element_constructor
+        self.element_constructor = element_constructor
 
     # Return an array of elements based on model specification
     def create_assembly_elements(self):

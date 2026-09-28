@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # Derive an element description from the global model definition
 class Element:
     def __init__(self, model: AbstractModule, element_number: int):

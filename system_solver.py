@@ -1,5 +1,9 @@
 import numpy as np
 
+#inputs from models BC and F
+#inputs from Gideon K
+#output for Pijus U nparray vector (not the same as F from models which is a matrix)
+
 """
 System solver inputs
 K   stiffness matrix [n, n]
@@ -65,4 +69,4 @@ def sysSolver(K, BC, F):
     U[bounded] = npBC[bounded, 1]  # boundary conditions set displacements    
     print("U=", U)
 
-    return U
+    return U 

@@ -8,7 +8,7 @@ def calculate_stiffness_matrix(elastic_modulus: float, cross_sectional_area: flo
     return k
 
 
-def local_stiffness_matrices(n_elements, elastic_modulus_array, cross_sectional_area_array, length_array):
+def local_stiffness_matrices(n_elements: int, elastic_modulus_array, cross_sectional_area_array, length_array)->list:
     # make list to be returned with all the local stiffness matrices for each element
     return_list = []
     

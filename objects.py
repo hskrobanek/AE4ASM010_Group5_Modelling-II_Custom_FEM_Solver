@@ -60,13 +60,13 @@ class Element:
 
 # Define an assembly class to create the structural elements
 class Assembly:
-    def __init__(self, model, element):
+    def __init__(self, model, element_constructor):
         self.model = model
-        self.element = element
+        self.element = element_constructor
 
     # Return an array of elements based on model specification
     def create_assembly_elements(self):
-        return [self.element(self.model, i) for i in range(self.model.n_elements)]
+        return [self.element_constructor(self.model, i) for i in range(self.model.n_elements)]
 
 
 

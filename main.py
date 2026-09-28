@@ -1,16 +1,23 @@
 from models import Model_1, Model_2, Model_3
 from objects import Element, Assembly
 
+'''
+Example imports from files:
+
 from element_stiffness_matrix import get_element_stiffness_matrices
 from element_transformation_matrix import get_element_transformation_matrices
 from global_stiffness_matrix import get_global_stiffness_matrix
 from solve_system_global import solve_system
 from post_processing import calculate_stress_strain, get_reaction_forces
 from deformation_plots import get_coordinates_deformed, plot_coordinates
+'''
 
 import numpy as np
 
 model = Model_1()
+
+'''
+Example main structure:
 
 assembly = Assembly(model, Element)
 
@@ -31,5 +38,5 @@ reaction_forces = get_reaction_forces(global_stiffness_matrix, global_displaceme
 coordinates_undeformed, coordinates_deformed = get_coordinates_deformed(model, global_displacement_vector)
 
 plot_coordinates(model, coordinates_deformed, coordinates_undeformed)
-
+'''
 

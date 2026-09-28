@@ -13,9 +13,10 @@ if TYPE_CHECKING:
     from models import AbstractModule
 
 def get_global_stiffness_matrix(
-        model: AbstractModule, element_stiffness_matrices: list[Matrix], element_transformation_matrices: list[Matrix],
-        connectivity_matrix: list[Matrix]
+        model: AbstractModule, element_stiffness_matrices: list[Matrix], element_transformation_matrices: list[Matrix]
 ) -> Matrix:
+    connectivity_matrix = model.connectivity_matrix
+    
     total_degrees_of_freedom = DOFS_PER_NODE * model.n_nodes
     global_matrix = np.zeros((total_degrees_of_freedom, total_degrees_of_freedom))  # GW Check
 

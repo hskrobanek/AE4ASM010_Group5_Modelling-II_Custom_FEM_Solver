@@ -65,4 +65,6 @@ reaction_forces = get_reaction_forces(global_stiffness_matrix, global_displaceme
 
 coordinates_undeformed, coordinates_deformed = get_coordinates_deformed(model, global_displacement_vector)
 
+print_results_tables(global_displacement_vector, strains, stresses, reaction_forces, model)
+
 plot_coordinates(model, coordinates_deformed, coordinates_undeformed)

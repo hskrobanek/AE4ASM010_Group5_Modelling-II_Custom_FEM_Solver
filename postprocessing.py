@@ -62,10 +62,10 @@ def print_results_tables(global_displacement_vector, strains, stresses, reaction
 
     # element strains and stresses
     print("\nELEMENT STRAINS AND STRESSES")
-    print(f"{'Element':>7} {'Nodes':>7} {'Strain [-]':>15} {'Stress [Pa]':>15}")
+    print(f"{'Element':>7} {'Nodes':>7} {'Strain [-]':>15} {'Stress [MPa]':>15}")
     for e in range(model.n_elements):
         node1, node2 = model.connectivity_matrix[e]
-        print(f"{e:>7} {f'{node1}-{node2}':>7} {strains[e][1]:>15.6e} {stresses[e][1]:>15.6e}")
+        print(f"{e:>7} {f'{node1}-{node2}':>7} {strains[e][1]:>15.6e} {stresses[e][1] / 1e6:>15.6e}")
 
     # reaction forces, only at constrained DOFs (free DOFs are zero up to round-off)
     print("\nREACTION FORCES")

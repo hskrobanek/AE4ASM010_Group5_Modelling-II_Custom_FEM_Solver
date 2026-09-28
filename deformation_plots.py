@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 def get_coordinates_deformed(model,
                              global_displacement_vector):
@@ -39,5 +40,16 @@ def plot_coordinates(model,
         plt.plot(x_vals_deformed, y_vals_deformed, 'ro', linestyle = '--')
 
     plt.show()
+
+    return
+
+def print_results(mode, elements, global_displacement_vector, strains, stresses, reaction forces):
+
+    data = pd.DataFrame()
+
+    for element in elements:
+        pass
+
+
 
     return

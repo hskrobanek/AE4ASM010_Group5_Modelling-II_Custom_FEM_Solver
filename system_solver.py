@@ -9,6 +9,9 @@ BC  boundary conditions [n, 2]
                     else if first==False/0 --> 0 no boundary (free)
 F   forces [n]
 """
+#solver function
+#inputs from Gideon K
+#inputs from model Hanna BC and F
 def sysSolver(K, BC, F):
 # boundary conditions into boolean
     print("K=", K) # debug printouts
@@ -44,4 +47,4 @@ def sysSolver(K, BC, F):
     U[bounded] = BC[bounded, 1]  # boundary conditions set displacements    
     print("U=", U)
 
-    return U
+    return U #output for Pijus

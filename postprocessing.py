@@ -15,10 +15,18 @@ def calculate_stress_strain(element_transformation_matrices, global_displacement
     strains = np.zeros((model.n_elements, 2))
     stresses = np.zeros((model.n_elements, 2))
 
+    U_global = np.asarray(global_displacement_vector, dtype=float).flatten()
+
     for e in range(model.n_elements):
 
-        # transform back to the local co-ordinate system: U_local = T^-1 U_global
-        U_local_element = np.linalg.inv(element_transformation_matrices[e]) @ global_displacement_vector
+        # pick out the 4 global DOFs of this element: [u1, v1, u2, v2]
+        node1 = elements[e].node1_number
+        node2 = elements[e].node2_number
+        element_dofs = [2*node1, 2*node1 + 1, 2*node2, 2*node2 + 1]
+        U_global_element = U_global[element_dofs]
+
+        # transform back to the local co-ordinate system: U_local = T^-1 U_global (T is orthogonal, so T^-1 = T^T)
+        U_local_element = element_transformation_matrices[e].T @ U_global_element
 
         # axial strain from the local axial displacements of both nodes
         epsilon = (U_local_element[2] - U_local_element[0]) / elements[e].length_undeformed

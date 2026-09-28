@@ -40,7 +40,7 @@ global_displacement_vector = solve_system(global_stiffness_matrix, model.boundar
 
 strains, stresses = calculate_stress_strain(element_transformation_matrices, global_displacement_vector, elements, model)
 
-reaction_forces = get_reaction_forces(global_stiffness_matrix, global_displacement_vector, model.applied_forces)
+reaction_forces = get_reaction_forces(global_stiffness_matrix, global_displacement_vector, model)
 
 coordinates_undeformed, coordinates_deformed = get_coordinates_deformed(model, global_displacement_vector)
 
@@ -61,7 +61,7 @@ global_displacement_vector = solve_system(global_stiffness_matrix, model.boundar
 
 strains, stresses = calculate_stress_strain(element_transformation_matrices, global_displacement_vector, elements, model)
 
-reaction_forces = get_reaction_forces(global_stiffness_matrix, global_displacement_vector, model.applied_forces)
+reaction_forces = get_reaction_forces(global_stiffness_matrix, global_displacement_vector, model)
 
 coordinates_undeformed, coordinates_deformed = get_coordinates_deformed(model, global_displacement_vector)
 

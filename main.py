@@ -22,8 +22,7 @@ elif model_id == '3':
     model = Model_3()
 
 else:
-    print('Invalid choice. Setting default to Model 1.')
-    model = Model_1()
+    raise ValueError('Invalid choice.')
 
 assembly = Assembly(model, Element)
 

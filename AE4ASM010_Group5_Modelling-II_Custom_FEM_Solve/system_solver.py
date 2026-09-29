@@ -1,8 +1,9 @@
 import numpy as np
 DEBUG = False #if true debug prints active
-# inputs from models BC and F
-# inputs from Gideon K
-# output for Pijus U nparray vector (not the same as F from models which is a matrix)
+# inputs from models.py BC and F
+# inputs from global_stiffness_matrix.py K
+# output for postprocessing.py U 
+#                                nparray vector (not the same as F from models which is a matrix)
 
 """
 System solver inputs

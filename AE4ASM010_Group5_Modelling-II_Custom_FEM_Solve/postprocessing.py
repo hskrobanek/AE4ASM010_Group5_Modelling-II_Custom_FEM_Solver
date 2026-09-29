@@ -54,6 +54,8 @@ def print_results_tables(global_displacement_vector, strains, stresses, reaction
     U = np.asarray(global_displacement_vector, dtype=float).flatten()
     R = np.asarray(reaction_forces, dtype=float).flatten()
 
+    print("\nRESULTS:")
+
     # nodal displacements
     print("\nNODAL DISPLACEMENTS")
     print(f"{'Node':>6} {'U1 [m]':>15} {'U2 [m]':>15}")

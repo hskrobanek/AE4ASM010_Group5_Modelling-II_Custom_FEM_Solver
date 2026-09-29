@@ -1,0 +1,110 @@
+********************************************************************************
+
+Model 1 Python printout
+********************************************************************************
+
+RESULTS:
+
+NODAL DISPLACEMENTS
+  Node          U1 [m]          U2 [m]
+     1    0.000000e+00    0.000000e+00
+     2    0.000000e+00    1.903189e-04
+     3    4.125051e-04   -2.585406e-04
+     4    0.000000e+00   -4.455920e-04
+
+ELEMENT STRAINS AND STRESSES
+Element   Nodes      Strain [-]    Stress [MPa]
+      1     1-2    9.515945e-04    6.661162e+01
+      2     2-3    1.504603e-03    1.053222e+02
+      3     3-4   -1.127269e-03   -7.890880e+01
+      4     4-1   -1.782368e-03   -1.247658e+02
+      5     1-3   -1.723604e-03   -1.206523e+02
+
+REACTION FORCES
+  Node         RF1 [N]         RF2 [N]
+     1    1.586954e+03    2.500000e+03
+     2   -1.413046e+03               0
+     3               0               0
+     4   -1.673908e+03               0
+
+********************************************************************************
+
+Model 1 Abaqus Report
+********************************************************************************
+
+
+For Python order Abaqus Nodes: 1432
+
+
+Loc 1 : Nodal values from source 1
+
+Output sorted by column "Node Label".
+
+Field Output reported at nodes for part: PART-1-1
+
+      Node Label          RF.RF1          RF.RF2            U.U1            U.U2
+                          @Loc 1          @Loc 1          @Loc 1          @Loc 1
+---------------------------------------------------------------------------------
+               1     1.58695E+03         2.5E+03    -1.58695E-33    -2.50000E-33
+               2    -1.67391E+03              0.     1.67391E-33    -445.592E-03
+               3              0.              0.     412.505E-03    -258.541E-03
+               4    -1.41305E+03              0.     1.41305E-33     190.319E-03
+
+
+  Minimum           -1.67391E+03              0.    -1.58695E-33    -445.592E-03
+         At Node               2               4               1               2
+
+  Maximum            1.58695E+03         2.5E+03     412.505E-03     190.319E-03
+         At Node               1               1               3               4
+
+           Total        -1.5E+03         2.5E+03     412.505E-03    -513.814E-03
+********************************************************************************
+
+
+For Python order Abaqus Element: 43215
+
+Loc 1 : Integration point values from source 1
+
+Output sorted by column "Element Label".
+
+Field Output reported at integration points for region: PART-1-1.Region_1
+
+   Element Label             Int           E.E11           S.S11
+                              Pt          @Loc 1          @Loc 1
+-----------------------------------------------------------------
+               1               1    -1.78237E-03        -124.766
+               2               1    -1.12727E-03        -78.9088
+               3               1     1.50460E-03         105.322
+               4               1     951.594E-06         66.6116
+
+
+  Minimum                           -1.78237E-03        -124.766
+      At Element                               1               1
+          Int Pt                               1               1
+
+  Maximum                            1.50460E-03         105.322
+      At Element                               3               3
+          Int Pt                               1               1
+
+           Total                    -453.439E-06        -31.7407
+
+
+Field Output reported at integration points for region: PART-1-1.Region_2
+
+   Element Label             Int           E.E11           S.S11
+                              Pt          @Loc 1          @Loc 1
+-----------------------------------------------------------------
+               5               1    -1.72360E-03        -120.652
+
+
+  Minimum                           -1.72360E-03        -120.652
+      At Element                               5               5
+          Int Pt                               1               1
+
+  Maximum                           -1.72360E-03        -120.652
+      At Element                               5               5
+          Int Pt                               1               1
+
+           Total                    -1.72360E-03        -120.652
+
+

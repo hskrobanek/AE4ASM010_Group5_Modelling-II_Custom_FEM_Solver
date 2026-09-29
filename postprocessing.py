@@ -25,7 +25,7 @@ def calculate_stress_strain(element_transformation_matrices, global_displacement
         element_dofs = [2*node1, 2*node1 + 1, 2*node2, 2*node2 + 1]
         U_global_element = U_global[element_dofs]
 
-        # transform back to the local co-ordinate system: U_local = T^-1 U_global (T is orthogonal, so T^-1 = T^T)
+        # transform back to the local co-ordinate system: U_local = T^-1 U_global (T is orthogonal)
         U_local_element = element_transformation_matrices[e].T @ U_global_element
 
         # axial strain from the local axial displacements of both nodes
@@ -67,12 +67,12 @@ def print_results_tables(global_displacement_vector, strains, stresses, reaction
         node1, node2 = model.connectivity_matrix[e]
         print(f"{e+1:>7} {f'{node1+1}-{node2+1}':>7} {strains[e][1]:>15.6e} {stresses[e][1] / 1e6:>15.6e}")
 
-    # reaction forces, only at constrained DOFs (free DOFs are zero up to round-off)
+    # reaction forces, only at constrained DOFs (free dofs will have 0 N RF)
     print("\nREACTION FORCES")
     print(f"{'Node':>6} {'RF1 [N]':>15} {'RF2 [N]':>15}")
     for n in range(model.n_nodes):
         rf = []
         for dof in (2*n, 2*n + 1):
-            rf.append(f"{R[dof]:>15.6e}" if model.boundary_conditions[dof] is not None else f"{'-':>15}")
+            rf.append(f"{R[dof]:>15.6e}" if model.boundary_conditions[dof] is not None else f"{'0':>15}")
         print(f"{n+1:>6} {rf[0]} {rf[1]}")
     print()

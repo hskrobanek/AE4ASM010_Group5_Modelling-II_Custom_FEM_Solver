@@ -1,6 +1,6 @@
 from models import Model_1, Model_2, Model_3
 from objects import Element, Assembly
-from global_stiffness_matrix import get_global_stiffness_matrix
+from global_stiffness_matrix import *
 from system_solver import *
 from element_transformation_matrix import *
 from postprocessing import *
